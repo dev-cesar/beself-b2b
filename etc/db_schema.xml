@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Beself_B2bCustomers
+ *
+ * @category  Beself
+ * @package   Beself_B2bCustomers
+ * @copyright Copyright © 2023. All rights reserved.
+ * @author    cesarhndev@gmail.com
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="customer_group" resource="default" engine="innodb" comment="Customer Group">
+        <column xsi:type="smallint" name="is_distributor" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Is Distributor Customer Group"/>
+    </table>
+</schema>
