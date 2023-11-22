@@ -107,6 +107,12 @@ class Form extends CustomerGroupForm
         );
 
         //Is Distributor
+        $isDistributorValue = 0;
+        if ($customerGroup->getExtensionAttributes()
+            && $customerGroup->getExtensionAttributes()->getIsDistributor()) {
+            $isDistributorValue = $customerGroup->getExtensionAttributes()->getIsDistributor();
+        }
+
         $fieldset->addField(
             'is_distributor',
             'checkbox',
@@ -114,8 +120,9 @@ class Form extends CustomerGroupForm
                 'name'   => ' is_distributor ',
                 'label' => __('Is Distributor'),
                 'title' => __('Is Distributor'),
-                'class' => 'required-entry',
+                'value' => $isDistributorValue,
                 'onclick' => 'this.value = this.checked ? 1 : 0;',
+                'checked' => $isDistributorValue,
                 'tabindex' => 1
             ]
         );
@@ -134,6 +141,7 @@ class Form extends CustomerGroupForm
                     'id' => $customerGroup->getId(),
                     'customer_group_code' => $customerGroup->getCode(),
                     'tax_class_id' => $defaultCustomerTaxClass,
+                    'is_distributor' => $isDistributorValue,
                 ]
             );
         }

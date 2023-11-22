@@ -11,11 +11,10 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
     <extension_attributes for="Magento\Customer\Api\Data\GroupInterface">
-        <attribute code="is_distributor" type="string">
+        <attribute code="is_distributor" type="int">
             <join reference_table="customer_group" reference_field="customer_group_id" join_on_field="customer_group_id">
                 <field column="is_distributor">Is distributor</field>
             </join>
         </attribute>
     </extension_attributes>
-
 </config>
