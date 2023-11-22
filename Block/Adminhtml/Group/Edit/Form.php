@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 /**
- * Beself_B2bCustomers
+ * Beself_CustomerB2b
  *
  * @category  Beself
- * @package   Beself_B2bCustomers
+ * @package   Beself_CustomerB2b
  * @copyright Copyright © 2023. All rights reserved.
  * @author    cesarhndev@gmail.com
  */
 
-namespace Beself\B2bCustomers\Block\Adminhtml\Group\Edit;
+namespace Beself\CustomerB2b\Block\Adminhtml\Group\Edit;
 
 use Magento\Customer\Api\Data\GroupInterfaceFactory;
 use Magento\Customer\Api\GroupRepositoryInterface;

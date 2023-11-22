@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 /**
- * Beself_B2bCustomers
+ * Beself_CustomerB2b
  *
  * @category  Beself
- * @package   Beself_B2bCustomers
+ * @package   Beself_CustomerB2b
  * @copyright Copyright © 2023. All rights reserved.
  * @author    cesarhndev@gmail.com
  */
@@ -13,5 +13,5 @@
 <!-- Override native Form -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Magento\Customer\Block\Adminhtml\Group\Edit\Form"
-            type="Beself\B2bCustomers\Block\Adminhtml\Group\Edit\Form" />
+            type="Beself\CustomerB2b\Block\Adminhtml\Group\Edit\Form" />
 </config>
