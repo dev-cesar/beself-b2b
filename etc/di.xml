@@ -14,9 +14,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Magento\Customer\Block\Adminhtml\Group\Edit\Form"
             type="Beself\CustomerB2b\Block\Adminhtml\Group\Edit\Form" />
+
+    <preference for="Beself\CustomerB2b\Api\IsDistributorRepositoryInterface"
+                type="Beself\CustomerB2b\Model\IsDistributorRepository" />
+
     <!-- Plugin for Is_Distributor attribute -->
     <type name="Magento\Customer\Api\GroupRepositoryInterface">
-        <plugin name="beself_manage_is_distributor_attr_customer_group"
-                type="Beself\CustomerB2b\Plugin\ManageIsDistributorForCustomerGroup" />
+        <plugin name="beself_get_is_distributor_attr_customer_group" type="Beself\CustomerB2b\Plugin\GetIsDistributorForCustomerGroup" />
     </type>
 </config>

@@ -7,34 +7,35 @@
  * @copyright Copyright © 2023. All rights reserved.
  * @author    cesarhndev@gmail.com
  */
-namespace Beself\CustomerB2b\Helper;
 
-use Magento\Framework\Model\ResourceModel\Db\VersionControl\AbstractDb;
+namespace Beself\CustomerB2b\Model;
 
-class IsDistributorHelper extends AbstractDb
+use Beself\CustomerB2b\Api\IsDistributorRepositoryInterface;
+use Magento\Framework\App\ResourceConnection;
+
+class IsDistributorRepository implements IsDistributorRepositoryInterface
 {
     public const CUSTOMER_GROUP_TABLE = 'customer_group';
     public const IS_DISTRIBUTOR_ATTR_KEY = 'is_distributor';
 
     /**
-     * Resource initialization
-     *
-     * @return void
+     * @param ResourceConnection $connection
      */
-    protected function _construct()
-    {
-        $this->_init(self::CUSTOMER_GROUP_TABLE, 'entity_id');
+    public function __construct(
+        readonly ResourceConnection $connection
+    ) {
     }
 
     /**
-     * SQL Query to get extension attribute from Customer Group Table
+     * Get extension attribute from Customer Group Table
      *
      * @param int $customerGroupId
-     * @return array
+     * @return int
      */
-    public function loadIsDistributorFromCustomerGroupId(int $customerGroupId): int
-    {
-        $connection = $this->getConnection();
+    public function loadIsDistributorFromCustomerGroupId(
+        int $customerGroupId
+    ): int {
+        $connection = $this->connection->getConnection();
         $bind = ['customer_group_id' => $customerGroupId];
 
         $select = $connection->select()->from(

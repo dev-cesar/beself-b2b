@@ -9,20 +9,20 @@
  */
 namespace Beself\CustomerB2b\Plugin;
 
-use Beself\CustomerB2b\Helper\IsDistributorHelper;
+use Beself\CustomerB2b\Model\IsDistributorRepository;
 use Magento\Customer\Api\Data\GroupExtensionInterfaceFactory;
 use Magento\Customer\Api\Data\GroupInterface;
 use Magento\Customer\Api\GroupRepositoryInterface;
 
-class ManageIsDistributorForCustomerGroup
+class GetIsDistributorForCustomerGroup
 {
     /**
      * @param GroupExtensionInterfaceFactory $groupExtensionInterfaceFactory
-     * @param IsDistributorHelper $distributorHelper
+     * @param IsDistributorRepository $distributorRepository
      */
     public function __construct(
         readonly GroupExtensionInterfaceFactory $groupExtensionInterfaceFactory,
-        readonly IsDistributorHelper $distributorHelper
+        readonly IsDistributorRepository $distributorRepository
     ) {
     }
 
@@ -42,7 +42,7 @@ class ManageIsDistributorForCustomerGroup
         int $id
     ): GroupInterface {
 
-        $isDistributor = $this->distributorHelper->loadIsDistributorFromCustomerGroupId($id);
+        $isDistributor = $this->distributorRepository->loadIsDistributorFromCustomerGroupId($id);
         if (!empty($isDistributor)) {
             $customerGroupExtensionAttributes = $this->groupExtensionInterfaceFactory->create();
             $customerGroupExtensionAttributes->setIsDistributor($isDistributor);
