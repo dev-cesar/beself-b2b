@@ -41,8 +41,9 @@ class SaveIsDistributorForCustomerGroup
         GroupRepositoryInterface $subject,
         GroupInterface $group,
     ): GroupInterface {
-        if ($group->getExtensionAttributes() && $group->getExtensionAttributes()->getIsDistributor() !== null) {
-            $groupId = $group->getId();
+        $groupId = (int)$group->getId();
+        if ($groupId && $group->getExtensionAttributes()
+            && $group->getExtensionAttributes()->getIsDistributor() !== null) {
             $isDistributorValue = (int)$group->getExtensionAttributes()->getIsDistributor();
             $prevIsDistributorValue = $this->distributorRepository->loadIsDistributorFromCustomerGroupId($groupId);
 
