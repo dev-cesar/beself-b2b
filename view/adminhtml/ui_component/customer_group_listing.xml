@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Beself_CustomerB2b
+ *
+ * @category  Beself
+ * @package   Beself_CustomerB2b
+ * @copyright Copyright © 2023. All rights reserved.
+ * @author    cesarhndev@gmail.com
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"     xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="customer_group_columns">
+        <column name="is_distributor">
+            <settings>
+                <label translate="true">Is Distributor</label>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <options class="Magento\Config\Model\Config\Source\Yesno"/>
+            </settings>
+        </column>
+    </columns>
+    <!-- Actions column inserted again to force the order of the columns -->
+    <actionsColumn name="actions" class="Magento\Customer\Ui\Component\Listing\Column\GroupActions">
+        <settings>
+            <indexField>customer_group_id</indexField>
+        </settings>
+    </actionsColumn>
+</listing>
