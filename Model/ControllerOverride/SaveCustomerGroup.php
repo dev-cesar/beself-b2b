@@ -10,48 +10,54 @@
 
 namespace Beself\CustomerB2b\Model\ControllerOverride;
 
+use Exception;
+use Magento\Backend\App\Action\Context;
+use Magento\Backend\Model\View\Result\Forward;
+use Magento\Backend\Model\View\Result\ForwardFactory;
+use Magento\Customer\Api\Data\GroupExtensionInterfaceFactory;
+use Magento\Customer\Api\Data\GroupInterface;
 use Magento\Customer\Api\Data\GroupInterfaceFactory;
 use Magento\Customer\Api\GroupRepositoryInterface;
-use Magento\Framework\App\Action\HttpPostActionInterface;
-use Magento\Framework\App\ObjectManager;
 use Magento\Customer\Controller\Adminhtml\Group\Save as DefaultSaveController;
+use Magento\Framework\Controller\Result\Redirect;
+use Magento\Framework\Reflection\DataObjectProcessor;
+use Magento\Framework\Registry;
+use Magento\Framework\View\Result\PageFactory;
 
+/**
+ * Class SaveCustomerGroup
+ *
+ * Override native controller to set up custom extension_attribute Is Distributor
+ */
 class SaveCustomerGroup extends DefaultSaveController
 {
     /**
-     * @var \Magento\Framework\Reflection\DataObjectProcessor
+     * @var GroupExtensionInterfaceFactory
      */
-    protected $dataObjectProcessor;
-
-    /**
-     * @var \Magento\Customer\Api\Data\GroupExtensionInterfaceFactory
-     */
-    private $groupExtensionInterfaceFactory;
+    private GroupExtensionInterfaceFactory $groupExtensionInterfaceFactory;
 
     /**
      *
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\Registry $coreRegistry
+     * @param Context $context
+     * @param Registry $coreRegistry
      * @param GroupRepositoryInterface $groupRepository
      * @param GroupInterfaceFactory $groupDataFactory
-     * @param \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
-     * @param \Magento\Framework\Reflection\DataObjectProcessor $dataObjectProcessor
-     * @param \Magento\Customer\Api\Data\GroupExtensionInterfaceFactory $groupExtensionInterfaceFactory
+     * @param ForwardFactory $resultForwardFactory
+     * @param PageFactory $resultPageFactory
+     * @param DataObjectProcessor $dataObjectProcessor
+     * @param GroupExtensionInterfaceFactory $groupExtensionInterfaceFactory
      */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Registry $coreRegistry,
+        Context $context,
+        Registry $coreRegistry,
         GroupRepositoryInterface $groupRepository,
         GroupInterfaceFactory $groupDataFactory,
-        \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        \Magento\Framework\Reflection\DataObjectProcessor $dataObjectProcessor,
-        \Magento\Customer\Api\Data\GroupExtensionInterfaceFactory $groupExtensionInterfaceFactory
+        ForwardFactory $resultForwardFactory,
+        PageFactory $resultPageFactory,
+        DataObjectProcessor $dataObjectProcessor,
+        GroupExtensionInterfaceFactory $groupExtensionInterfaceFactory
     ) {
-        $this->dataObjectProcessor = $dataObjectProcessor;
-        $this->groupExtensionInterfaceFactory = $groupExtensionInterfaceFactory
-            ?: ObjectManager::getInstance()->get(\Magento\Customer\Api\Data\GroupExtensionInterfaceFactory::class);
+        $this->groupExtensionInterfaceFactory = $groupExtensionInterfaceFactory;
         parent::__construct(
             $context,
             $coreRegistry,
@@ -66,18 +72,18 @@ class SaveCustomerGroup extends DefaultSaveController
     /**
      * Create or save customer group.
      *
-     * @return \Magento\Backend\Model\View\Result\Redirect|\Magento\Backend\Model\View\Result\Forward
+     * @return Forward|Redirect
      */
     public function execute()
     {
         $taxClass = (int)$this->getRequest()->getParam('tax_class');
 
-        /** @var \Magento\Customer\Api\Data\GroupInterface $customerGroup */
+        /** @var GroupInterface $customerGroup */
         $customerGroup = null;
         if ($taxClass) {
             $id = $this->getRequest()->getParam('id');
-            $websitesToExclude = empty($this->getRequest()->getParam('customer_group_excluded_websites'))
-                ? [] : $this->getRequest()->getParam('customer_group_excluded_websites');
+            $isDistributor = $this->getRequest()->getParam('is_distributor');
+
             $resultRedirect = $this->resultRedirectFactory->create();
             try {
                 $customerGroupCode = (string)$this->getRequest()->getParam('code');
@@ -91,9 +97,9 @@ class SaveCustomerGroup extends DefaultSaveController
                 $customerGroup->setCode(!empty($customerGroupCode) ? $customerGroupCode : null);
                 $customerGroup->setTaxClassId($taxClass);
 
-                if ($websitesToExclude !== null) {
+                if ($isDistributor !== null) {
                     $customerGroupExtensionAttributes = $this->groupExtensionInterfaceFactory->create();
-                    $customerGroupExtensionAttributes->setExcludeWebsiteIds($websitesToExclude);
+                    $customerGroupExtensionAttributes->setIsDistributor($isDistributor);
                     $customerGroup->setExtensionAttributes($customerGroupExtensionAttributes);
                 }
 
@@ -101,22 +107,22 @@ class SaveCustomerGroup extends DefaultSaveController
 
                 $this->messageManager->addSuccessMessage(__('You saved the customer group.'));
                 $resultRedirect->setPath('customer/group');
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
                 if ($customerGroup != null) {
                     $this->storeCustomerGroupDataToSession(
                         $this->dataObjectProcessor->buildOutputDataArray(
                             $customerGroup,
-                            \Magento\Customer\Api\Data\GroupInterface::class
+                            GroupInterface::class
                         )
                     );
                 }
                 $resultRedirect->setPath('customer/group/edit', ['id' => $id]);
             }
             return $resultRedirect;
-        } else {
-            return $this->resultForwardFactory->create()->forward('new');
         }
+
+        return $this->resultForwardFactory->create()->forward('new');
     }
 
 }

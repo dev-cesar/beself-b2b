@@ -115,14 +115,17 @@ class Form extends CustomerGroupForm
 
         $fieldset->addField(
             'is_distributor',
-            'checkbox',
+            'select',
             [
-                'name'   => ' is_distributor ',
+                'name'   => ' is_distributor',
                 'label' => __('Is Distributor'),
                 'title' => __('Is Distributor'),
+                'class' => 'required-entry',
                 'value' => $isDistributorValue,
-                'onclick' => 'this.value = this.checked ? 1 : 0;',
-                'checked' => $isDistributorValue,
+                'options' => [
+                    0 => __('No'),
+                    1 => __('Yes'),
+                ],
                 'tabindex' => 1
             ]
         );

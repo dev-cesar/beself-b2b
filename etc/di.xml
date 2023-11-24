@@ -18,8 +18,15 @@
     <preference for="Beself\CustomerB2b\Api\IsDistributorRepositoryInterface"
                 type="Beself\CustomerB2b\Model\IsDistributorRepository" />
 
+
+    <preference for="Magento\Customer\Controller\Adminhtml\Group\Save"
+                type="Beself\CustomerB2b\Model\ControllerOverride\SaveCustomerGroup" />
+
     <!-- Plugin for Is_Distributor attribute -->
     <type name="Magento\Customer\Api\GroupRepositoryInterface">
         <plugin name="beself_get_is_distributor_attr_customer_group" type="Beself\CustomerB2b\Plugin\GetIsDistributorForCustomerGroup" />
+        <plugin name="beself_save_is_distributor_attr_customer_group" type="Beself\CustomerB2b\Plugin\SaveIsDistributorForCustomerGroup" />
     </type>
+
+
 </config>
