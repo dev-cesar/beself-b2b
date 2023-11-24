@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 /**
- * InstallData
- * @category  Vivadogs
- * @package   Vivadogs_Module
- * @copyright Copyright © 2023 Vivadogs. All rights reserved.
- * @author    cesar.hernandez@vivadogs.com
- * @link      https://www.vivadogs.com/
+ * Beself_CustomerB2b
+ *
+ * @category  Beself
+ * @package   Beself_CustomerB2b
+ * @copyright Copyright © 2023. All rights reserved.
+ * @author    cesarhndev@gmail.com
  */
 
 namespace Beself\CustomerB2b\Setup\Patch\Data;

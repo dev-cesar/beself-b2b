@@ -15,12 +15,14 @@
     <preference for="Magento\Customer\Block\Adminhtml\Group\Edit\Form"
             type="Beself\CustomerB2b\Block\Adminhtml\Group\Edit\Form" />
 
+    <preference for="Magento\Customer\Controller\Adminhtml\Group\Save"
+                type="Beself\CustomerB2b\Model\ControllerOverride\SaveCustomerGroup" />
+
     <preference for="Beself\CustomerB2b\Api\IsDistributorRepositoryInterface"
                 type="Beself\CustomerB2b\Model\IsDistributorRepository" />
 
-
-    <preference for="Magento\Customer\Controller\Adminhtml\Group\Save"
-                type="Beself\CustomerB2b\Model\ControllerOverride\SaveCustomerGroup" />
+    <preference for="Beself\CustomerB2b\Api\CustomerB2bRepositoryInterface"
+                type="Beself\CustomerB2b\Model\CustomerB2bRepository" />
 
     <!-- Plugin for Is_Distributor attribute -->
     <type name="Magento\Customer\Api\GroupRepositoryInterface">

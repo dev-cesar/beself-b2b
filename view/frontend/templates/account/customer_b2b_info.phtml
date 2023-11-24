@@ -1,1 +1,30 @@
-<h2>My Infor</h2>
+<?php
+/**
+ * Beself_CustomerB2b
+ *
+ * @category  Beself
+ * @package   Beself_CustomerB2b
+ * @copyright Copyright © 2023. All rights reserved.
+ * @author    cesarhndev@gmail.com
+ */
+
+/** @var \Beself\CustomerB2b\Block\Account\CustomerB2bInfo $block */
+?>
+<div class="block block-dashboard-info">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__('Additional Information')) ?></strong>
+    </div>
+    <div class="block-content">
+        <div class="box box-information">
+            <div class="box-content">
+                <p>
+                    <?= $block->getIsB2bCustomerLabel() ?><br>
+                    <?php if ($block->isB2bCustomer()): ?>
+                        <strong><?= $block->escapeHtml(__('Your favorite type of product is:')) ?></strong>
+                        <?= $block->getB2bFavoriteProductLabel() ?><br>
+                    <?php endif; ?>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
