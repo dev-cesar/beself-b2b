@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Beself_CustomerB2b
+ *
+ * @category  Beself
+ * @package   Beself_CustomerB2b
+ * @copyright Copyright © 2023. All rights reserved.
+ * @author    cesarhndev@gmail.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="customer_b2b_info"
+                   template="Beself_CustomerB2b::account/customer_b2b_info.phtml"
+                   after="info"
+            />
+        </referenceContainer>
+    </body>
+</page>
