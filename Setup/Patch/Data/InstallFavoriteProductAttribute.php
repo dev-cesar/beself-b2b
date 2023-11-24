@@ -53,7 +53,7 @@ class InstallFavoriteProductAttribute implements DataPatchInterface
             self::FAVORITE_PRODUCT_ATTR_CODE,
             [
                 'type' => 'int',
-                'label' => 'Favorite Product',
+                'label' => __('Favorite Product'),
                 'source' => FavoriteProduct::class,
                 'input' => 'select',
                 'required' => false,
